@@ -19,25 +19,28 @@ object ServiceModule {
 
     @ServiceScoped
     @Provides
-    fun providesAudioAttributes() = AudioAttributes.Builder()
-        .setContentType(C.CONTENT_TYPE_MUSIC)
-        .setUsage(C.USAGE_MEDIA)
-        .build()
-
+    fun providesAudioAttributes(): AudioAttributes {
+        return AudioAttributes.Builder()
+            .setContentType(C.CONTENT_TYPE_MUSIC)
+            .setUsage(C.USAGE_MEDIA)
+            .build()
+    }
 
     @ServiceScoped
     @Provides
     fun providesExoplayer(
         @ApplicationContext context: Context, audioAttributes: AudioAttributes
-    ) = ExoPlayer.Builder(context).build().apply {
-        setAudioAttributes(audioAttributes, true)
-        setHandleAudioBecomingNoisy(true)
+    ): ExoPlayer {
+        return ExoPlayer.Builder(context).build().apply {
+            setAudioAttributes(audioAttributes, true)
+            setHandleAudioBecomingNoisy(true)
+        }
     }
 
 
     @ServiceScoped
     @Provides
-    fun provideDataSourceFactory(@ApplicationContext context: Context) =
-        DefaultDataSource.Factory(context)
-
+    fun provideDataSourceFactory(@ApplicationContext context: Context): DefaultDataSource.Factory {
+       return DefaultDataSource.Factory(context)
+    }
 }
